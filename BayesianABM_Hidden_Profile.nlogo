@@ -31,7 +31,6 @@ to setup-new-bn
   if n-correct-votes > 0 [
     setup-new-bn
   ]
-  ; TODO: is-hidden-profile? is a feature in output BehaviorSpace experiments, but no longer needed after recording all attempts
   set is-hidden-profile? n-correct-votes = 0
   reset-ticks
 end
@@ -106,7 +105,6 @@ to go
     stop
   ]
 
-  ; TODO: record time to correct consensus for all attempts.
   let update-time-to-correct-consensus? not (n-correct-votes = n-agents)
 
   ask one-of turtles with [ not member? who silent-agents ] [
@@ -294,7 +292,7 @@ to create-all-observations
   ;let nodes r:get "nodes(bn)"
   let nodes r:get "junction$universe$nodes"
   if print-statements [ print (word "Nodes: " nodes ", leaf.nodes: " r:get "leaf.nodes(as.bn.fit(junction, including.evidence = TRUE))") ]
-  ;set target-node one-of nodes ; TODO 1 observation -> error because nodes is not a list
+  ;set target-node one-of nodes
   let leafs r:get "leaf.nodes(as.bn.fit(junction, including.evidence = TRUE))"
   ; set target-node (one of) the graph leaf(s)
   set target-node ifelse-value (is-list? leafs) [ one-of leafs ] [ leafs ]
@@ -361,7 +359,7 @@ to setup-observations
   ]
   set n-correct-votes-all-runs lput n-correct-votes n-correct-votes-all-runs
 
-  ifelse not always-make-max-attempts [ ;; TK this variable name is cursed
+  ifelse not always-make-max-attempts [
     ; generate a new realization of the evidence if no hidden profile
     if n-correct-votes > 0 and n-hidden-profile-generation-attempts < max-n-attempts-to-generate-hp [
       setup-observations
@@ -1077,11 +1075,9 @@ If you don't want to stop when a HP is generated:
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+This is a Bayesian agent-based model of persuasive argument exchange that represents relations between arguments using Bayesian networks. We generate complex hidden profiles and simulate group deliberation with different communications strategies, e.g. advocacy of own opinion, conformity with majority opinion, and random.
 
 ## HOW IT WORKS
-
-(what rules the agents use to create the overall behavior of the model)
 
 Agent selects an observation to share with all other agents from her store 'observations', according to her strategy. If an observation matches the strategy, she removes it from her 'observations' and adds it to everyone's store 'testimonies'.
 
@@ -1094,29 +1090,10 @@ In behaviorspace, select either the random experiment to generate a series of ra
 
 You can also manually type a number for the graph you want to load. Or, create a new random graph with setup-new-bn button (this graph will be saved as '0.net', possibly overwriting an existing file!).
 
-## THINGS TO NOTICE
-
-(suggested things for the user to notice while running the model)
-
-## THINGS TO TRY
-
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
-
-## EXTENDING THE MODEL
-
-Exchanges are broadcasted to all agents in the classic hidden profile paradigm, we will need something else in case of selective broadcasting to subsets of agents.
-
-## NETLOGO FEATURES
-
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-
-## RELATED MODELS
-
-(models in the NetLogo Models Library and elsewhere which are of related interest)
 
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+Siebe, H. (2024). Modelling the prevalence of hidden profiles with complex argument structures. Proceedings of the Annual Meeting of the Cognitive Science Society. https://escholarship.org/uc/item/1kg1k9dn
 @#$#@#$#@
 default
 true

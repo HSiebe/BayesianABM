@@ -1,5 +1,5 @@
 # BayesianABM
-Bayesian Agent-Based Model of persuasive argument exchange
+This is a Bayesian Agent-Based Model of persuasive argument exchange. Relationships between arguments are represented using Bayesian networks.
 
 BNcode.R contains the code for generating random Bayes nets and performing exact inferences over them.
 It is leveraged by the agent-based model in BayesianABM_Hidden_Profile.nlogo.
